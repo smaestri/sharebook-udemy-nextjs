@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div>
+        <div className='container mx-auto'>
           <Header />
           <div className='flex flex-row'>
             <div className='basis-1/5'>
