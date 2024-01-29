@@ -3,7 +3,6 @@ import { Book } from "@prisma/client";
 import Link from "next/link";
 import Image from "next/image"
 
-
 export default async function MyBooksPage() {
   const books = await db.book.findMany();
   console.log('books', books)
