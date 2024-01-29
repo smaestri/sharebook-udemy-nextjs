@@ -10,8 +10,12 @@ export default async function MyBooksPage() {
   const renderBooks = () => (
     books.map((book: Book) => (<div>
       <Image src="" alt="book" />
+      <div>{book.id}</div>
       <div>{book.title}</div>
       <div>{book.author}</div>
+      <div> <Link href={`/my-books/${book.id}`}>
+        <button>Modifier</button>
+      </Link></div>
     </div>))
   )
 
