@@ -15,7 +15,7 @@ export default async function EditBookPage(props: EditBookProps) {
     await new Promise((r) => setTimeout(r, 2000))
 
     const id = parseInt(props.params.id)
-    const book: Book = await db.book.findFirst({
+    const book: Book | null = await db.book.findFirst({
         where: { id }
     })
 
