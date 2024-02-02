@@ -3,13 +3,18 @@ import { Book } from "@prisma/client";
 import Link from "next/link";
 import Image from "next/image"
 import bookImg from '/public/book.png'
+import { BookWithCategory } from "./[id]/page";
 
 
 export default async function MyBooksPage() {
-  const books = await db.book.findMany();
+  let books: BookWithCategory[] = await db.book.findMany({
+    include: {
+      category: true
+    }
+  });
   console.log('books', books)
   const renderBooks = () => (
-    books.map((book: Book) => (
+    books.map((book: BookWithCategory) => (
       <div
         key={book.id}
         className="flex flex-col m-5"
@@ -23,6 +28,8 @@ export default async function MyBooksPage() {
           <div><span className="italic">{book.title}</span></div>
         </div>
         <div>Auteur: <span className="italic">{book.author}</span></div>
+        <div>Categorie: <span className="italic">{book.category.name}</span></div>
+
         <div className="flex flex-col items-center mt-2">
           <Link href={`/my-books/${book.id}`}>
             <button>Modifier</button>

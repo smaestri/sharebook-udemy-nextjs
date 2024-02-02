@@ -1,6 +1,6 @@
 import BookForm from "@/components/book-form";
 import { db } from "@/lib/db";
-import { Book } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { notFound } from "next/navigation";
 
 interface EditBookProps {
@@ -9,14 +9,21 @@ interface EditBookProps {
     }
 }
 
+const booksWithCategory = Prisma.validator<Prisma.BookDefaultArgs>()({
+    include: { category: true },
+  })
+  export type BookWithCategory = Prisma.BookGetPayload<typeof booksWithCategory>
+  
+
 export default async function EditBookPage(props: EditBookProps) {
-
-
-    await new Promise((r) => setTimeout(r, 2000))
+    const categories = await db.category.findMany();
 
     const id = parseInt(props.params.id)
-    const book: Book | null = await db.book.findFirst({
-        where: { id }
+    const book: BookWithCategory | null = await db.book.findFirst({
+        where: { id },
+        include: {
+            category: true,
+          }
     })
 
     if(!book) {
@@ -26,7 +33,7 @@ export default async function EditBookPage(props: EditBookProps) {
     return (
         <>
             <h1 className="text-2xl">Modifier un Livre</h1>
-            <BookForm book={book} />
+            <BookForm book={book} categories={categories} />
         </>
     )
 
