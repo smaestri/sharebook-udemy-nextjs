@@ -1,12 +1,26 @@
 import { db } from "@/lib/db";
 import { Book } from "@prisma/client";
 import Link from "next/link";
+import {Button} from "@nextui-org/react"
 import Image from "next/image"
 import bookImg from '/public/book.png'
 import { BookWithCategory } from "./[id]/page";
+import { redirect } from "next/navigation";
 
 
 export default async function MyBooksPage() {
+
+  async function deleteBook(id: number) {
+    "use server"
+    console.log('delete book', id)
+    await db.book.delete({
+        where: { id },
+
+    })
+    //revalidatePath('/my-books')
+    redirect('/my-books')
+}
+
   let books: BookWithCategory[] = await db.book.findMany({
     include: {
       category: true
@@ -32,8 +46,11 @@ export default async function MyBooksPage() {
 
         <div className="flex flex-col items-center mt-2">
           <Link href={`/my-books/${book.id}`}>
-            <button>Modifier</button>
+            <Button>Modifier</Button>
           </Link>
+            <form action={deleteBook.bind(null, book.id)}>
+              <Button type="submit">Supprimer</Button>
+            </form>
         </div>
       </div>))
   )
