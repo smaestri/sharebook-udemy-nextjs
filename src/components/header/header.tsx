@@ -16,7 +16,6 @@ export default async function Header() {
 
       <NavbarContent as="div" className="items-center" justify="end">
     <Link href="/my-books">Mes livres</Link>
-    <Link href="/list-books">livres</Link>
     <Link href="/borrows">Mes emprunts</Link>
         <SearchInput />
         <Button type="submit">Sign In</Button>
