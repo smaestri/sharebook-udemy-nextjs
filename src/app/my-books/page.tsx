@@ -34,7 +34,7 @@ export default async function MyBooksPage() {
         <div>Auteur: <span className="italic">{book.author}</span></div>
         <div>Categorie: <span className="italic">{book.category.name}</span></div>
 
-        <div className="flex flex-col items-center mt-2">
+        <div className="flex flex-col items-center gap-2">
           <Link href={`/my-books/${book.id}`}>
             <Button>Modifier</Button>
           </Link>
