@@ -2,6 +2,7 @@
   import './globals.css'
   import Header from '@/components/header/header'
   import { Providers } from './providers'
+import Navigation from '@/components/navigation/navigation'
 
   export const metadata: Metadata = {
     title: 'Create Next App',
@@ -20,7 +21,7 @@
             <Header />
             <div className='flex flex-row'>
               <div className='basis-1/5'>
-                menu
+                <Navigation />
               </div>
               <div className='basis-4/5'>
                 <Providers>
