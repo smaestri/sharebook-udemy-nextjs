@@ -4,6 +4,15 @@ import { redirect } from "next/navigation"
 import { db } from "./db"
 import { Book } from "@prisma/client"
 
+export async function deleteBook(id: number) {
+    console.log('delete book', id)
+    await db.book.delete({
+        where: { id },
+
+    })
+    redirect('/my-books')
+}    
+
 export async function createOrUpdateBook(book: Book | undefined, formData: FormData) {
     console.log('creating book')
 

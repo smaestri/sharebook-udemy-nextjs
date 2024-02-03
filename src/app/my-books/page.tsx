@@ -6,20 +6,10 @@ import Image from "next/image"
 import bookImg from '/public/book.png'
 import { BookWithCategory } from "./[id]/page";
 import { redirect } from "next/navigation";
+import { deleteBook } from "@/lib/actions";
 
 
 export default async function MyBooksPage() {
-
-  async function deleteBook(id: number) {
-    "use server"
-    console.log('delete book', id)
-    await db.book.delete({
-        where: { id },
-
-    })
-    //revalidatePath('/my-books')
-    redirect('/my-books')
-}
 
   let books: BookWithCategory[] = await db.book.findMany({
     include: {
