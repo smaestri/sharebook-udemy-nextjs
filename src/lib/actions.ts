@@ -13,39 +13,43 @@ export async function deleteBook(id: number) {
 
     })
     redirect('/my-books')
-}    
+}
 
-export async function createOrUpdateBook(book: Book | undefined , formState: {message: string}, formData: FormData) {
+export async function createOrUpdateBook(book: Book | undefined, formState: { message: string }, formData: FormData) {
 
-    return {
-        message: "must be longer"
+    const title = formData.get('title') as string
+    const author = formData.get('author') as string
+    const category = formData.get('category') as string
+    if (typeof title !== 'string' || title.length < 3) {
+        return {
+            message: "Titile must be longer"
+        }
     }
-    // console.log('creating book')
 
-    // const title = formData.get('title') as string
-    // const author = formData.get('author') as string
-    // const category = formData.get('category') as string
+    if (typeof author !== 'string' || author.length < 3) {
+        return {
+            message: "Author must be longer"
+        }
+    }
 
-    // if (!book) {
-    //     await db.book.create({
-    //         data: {
-    //             title,
-    //             author,
-    //             categoryId: parseInt(category),
-    //         }
-    //     })
-    // } else {
-    //     await db.book.update({
-    //         where: { id: book.id },
-    //         data: {
-    //             title,
-    //             author,
-    //             categoryId: parseInt(category),
+    if (!book) {
+        await db.book.create({
+            data: {
+                title,
+                author,
+                categoryId: parseInt(category),
+            }
+        })
+    } else {
+        await db.book.update({
+            where: { id: book.id },
+            data: {
+                title,
+                author,
+                categoryId: parseInt(category),
 
-    //         }
-    //     })
-    // }
-
-    // console.log(book)
-    // redirect('/my-books')
+            }
+        })
+    }
+    redirect('/my-books')
 }

@@ -30,7 +30,7 @@ export default function BookForm({ book, categories }: BookFormProps) {
             )}
           </Select>
           <div>
-            {formState.message}
+          {formState.message? <div className="p-2 bg-red-200 border border-red-400">{formState.message}</div> : null}
           </div>
             <Button type="submit">Sauvegarder</Button>
         </div>
