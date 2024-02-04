@@ -1,6 +1,8 @@
+"use client"
 import Link from "next/link";
 import { Button, Navbar, NavbarBrand, NavbarContent, Image } from "@nextui-org/react";
 import SearchInput from "./search-input";
+import { signIn, signOut } from "@/lib/actions";
 
 export default async function Header() {
   return (
@@ -18,7 +20,9 @@ export default async function Header() {
     <Link href="/my-books">Mes livres</Link>
     <Link href="/borrows">Mes emprunts</Link>
         <SearchInput />
-        <Button type="submit">Sign In</Button>
+        <Button type="submit" onPress={()=>signIn()}>Sign In</Button>
+        <Button type="submit" onPress={()=>signOut()}>Sign Out</Button>
+
       </NavbarContent>
     </Navbar>
   )
