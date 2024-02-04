@@ -4,20 +4,21 @@ import Link from "next/link";
 import {Button} from "@nextui-org/react"
 import Image from "next/image"
 import bookImg from '/public/book.png'
-import { BookWithCategory } from "./[id]/page";
+import { BookWithCategoryAndUser } from "./[id]/page";
 import { redirect } from "next/navigation";
 import { deleteBook } from "@/lib/actions";
 
 
 export default async function MyBooksPage() {
 
-  let books: BookWithCategory[] = await db.book.findMany({
+  let books: BookWithCategoryAndUser[] = await db.book.findMany({
     include: {
-      category: true
+      category: true,
+      user: true
     }
   });
   const renderBooks = () => (
-    books.map((book: BookWithCategory) => (
+    books.map((book: BookWithCategoryAndUser) => (
       <div
         key={book.id}
         className="flex flex-col m-5"

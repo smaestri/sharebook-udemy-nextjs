@@ -9,20 +9,21 @@ interface EditBookProps {
     }
 }
 
-const booksWithCategory = Prisma.validator<Prisma.BookDefaultArgs>()({
-    include: { category: true },
-  })
-  export type BookWithCategory = Prisma.BookGetPayload<typeof booksWithCategory>
+const booksWithCategoryAndUser = Prisma.validator<Prisma.BookDefaultArgs>()({
+    include: { category: true, user: true },
+})
+export type BookWithCategoryAndUser = Prisma.BookGetPayload<typeof booksWithCategoryAndUser>
   
 
 export default async function EditBookPage(props: EditBookProps) {
     const categories = await db.category.findMany();
 
     const id = parseInt(props.params.id)
-    const book: BookWithCategory | null = await db.book.findFirst({
+    const book: BookWithCategoryAndUser | null = await db.book.findFirst({
         where: { id },
         include: {
             category: true,
+            user: true
           }
     })
 

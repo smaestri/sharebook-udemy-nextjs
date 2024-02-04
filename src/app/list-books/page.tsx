@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import Image from "next/image"
 import bookImg from '/public/book.png'
-import { BookWithCategory } from "../my-books/[id]/page";
+import { BookWithCategoryAndUser } from "../my-books/[id]/page";
 
 interface ListBooksProps{
   searchParams: {
@@ -11,9 +11,11 @@ interface ListBooksProps{
 
 export default async function ListBooksPage({searchParams} : ListBooksProps) {
 
-  const books: BookWithCategory[] = await db.book.findMany({
+  const books: BookWithCategoryAndUser[] = await db.book.findMany({
     include: {
-      category: true
+      category: true,
+      user: true
+
     },
     where: {
       categoryId: parseInt(searchParams.categoryId),
@@ -25,7 +27,7 @@ export default async function ListBooksPage({searchParams} : ListBooksProps) {
   })
 
   const renderBooks = () => (
-    books.map((book: BookWithCategory) => (
+    books.map((book: BookWithCategoryAndUser) => (
       <div
         key={book.id}
         className="flex flex-col m-5"
@@ -40,6 +42,7 @@ export default async function ListBooksPage({searchParams} : ListBooksProps) {
         </div>
         <div>Auteur: <span className="italic">{book.author}</span></div>
         <div>Categorie: <span className="italic">{book.category.name}</span></div>
+        <div>Propriétaire: <span className="italic">{book.user.email}</span></div>
 
       </div>))
   )

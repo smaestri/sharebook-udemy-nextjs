@@ -1,12 +1,12 @@
 "use client"
-import { BookWithCategory } from "@/app/my-books/[id]/page";
+import { BookWithCategoryAndUser } from "@/app/my-books/[id]/page";
 import { createOrUpdateBook } from "@/lib/actions";
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import { Category } from "@prisma/client";
 import { useFormState } from "react-dom";
 
 interface BookFormProps {
-    book?: BookWithCategory;
+    book?: BookWithCategoryAndUser;
     categories: Category[]
 }
 

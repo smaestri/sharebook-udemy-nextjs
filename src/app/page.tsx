@@ -5,7 +5,7 @@ export default async function Home() {
 
   return <div>
    Page d Accueil
-   {session?.user ? <div>{JSON.stringify(session.user)}</div> : <div>Signed out</div>}
+   {session?.user ? <div>{JSON.stringify(session.user)}</div> : <div>Vous avez été déconnecté</div>}
 
     </div>
 }
