@@ -48,7 +48,6 @@ export async function createOrUpdateBook(book: Book | undefined, formState: { me
                     author,
                     categoryId: parseInt(category),
                     userId: session.user.id
-
                 }
             })
         } else {
@@ -58,8 +57,6 @@ export async function createOrUpdateBook(book: Book | undefined, formState: { me
                     title,
                     author,
                     categoryId: parseInt(category),
-                    userId: session.user.id
-
                 }
             })
         }
