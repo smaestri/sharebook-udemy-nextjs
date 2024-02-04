@@ -85,7 +85,23 @@ export async function signOut() {
     return auth.signOut()
 }
 
-
-export async function borrowBook() {
-   //TODO
+export async function borrowBook(bookId: number) {
+    const session = await auth.auth()
+    if (!session || !session.user) {
+        return
+    }
+    await db.borrow.create({
+        data: {
+            bookId,
+            borrowerId: session.user.id
+        }
+    })
+    await db.book.update({
+        where: { id: bookId },
+        data: {
+            status: "BORROWED"
+        }
+    })
+    revalidatePath('/borrows')
+    redirect('/borrows')
 }

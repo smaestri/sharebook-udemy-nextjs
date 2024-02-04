@@ -4,6 +4,7 @@ import bookImg from '/public/book.png'
 import { BookWithCategoryAndUser } from "../my-books/[id]/page";
 import { auth } from "@/auth";
 import { Button } from "@nextui-org/button";
+import { borrowBook } from "@/lib/actions";
 
 interface ListBooksProps{
   searchParams: {
@@ -59,8 +60,8 @@ export default async function ListBooksPage({searchParams} : ListBooksProps) {
           ) : null}
         </div>
         <div className="flex flex-col items-center mt-2">
-          {book.userId !== userId && 
-          <Button>Emprunter</Button> }
+          {book.status === 'FREE'  && book.userId !== userId && 
+          <form action={borrowBook.bind(null, book.id)}><Button type="submit">Emprunter</Button></form>}
         </div>
 
       </div>))
