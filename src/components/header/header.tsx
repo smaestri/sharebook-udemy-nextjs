@@ -3,8 +3,10 @@ import Link from "next/link";
 import { Button, Navbar, NavbarBrand, NavbarContent, Image } from "@nextui-org/react";
 import SearchInput from "./search-input";
 import { signIn, signOut } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 
 export default async function Header() {
+  const router = useRouter()
   return (
     <Navbar isBordered maxWidth={'full'}>
       <NavbarContent justify="start">
@@ -20,8 +22,12 @@ export default async function Header() {
     <Link href="/my-books">Mes livres</Link>
     <Link href="/borrows">Mes emprunts</Link>
         <SearchInput />
-        <Button type="submit" onPress={()=>signIn()}>Sign In</Button>
-        <Button type="submit" onPress={()=>signOut()}>Sign Out</Button>
+        <Button onPress={(e:any) => {console.log(e);signIn()}}>Sign In</Button>
+        <Button onPress={()=> {
+          signOut();
+          //router.push("/")
+        }
+        }>Sign Out</Button>
 
       </NavbarContent>
     </Navbar>
