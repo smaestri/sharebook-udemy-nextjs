@@ -38,3 +38,13 @@ export default async function EditBookPage(props: EditBookProps) {
     )
 
 }
+
+export async function generateStaticParams() {
+    const books = await db.book.findMany();
+
+    return books.map((book) => {
+        return {
+            id: book.id.toString(),
+        };
+    });
+}
