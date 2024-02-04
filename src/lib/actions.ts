@@ -18,6 +18,12 @@ export async function deleteBook(id: number) {
 }
 
 export async function createOrUpdateBook(book: Book | undefined, formState: { message: string }, formData: FormData) {
+    const session = await auth.auth()
+    if (!session || !session.user) {
+        return {
+            message: "Please login"
+        }
+    }
 
     try {
         const title = formData.get('title') as string
@@ -41,6 +47,8 @@ export async function createOrUpdateBook(book: Book | undefined, formState: { me
                     title,
                     author,
                     categoryId: parseInt(category),
+                    userId: session.user.id
+
                 }
             })
         } else {
@@ -50,6 +58,7 @@ export async function createOrUpdateBook(book: Book | undefined, formState: { me
                     title,
                     author,
                     categoryId: parseInt(category),
+                    userId: session.user.id
 
                 }
             })
