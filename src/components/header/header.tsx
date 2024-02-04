@@ -1,12 +1,12 @@
-"use client"
+import Account from "./account";
 import Link from "next/link";
+import { signIn } from "@/lib/actions";
 import { Button, Navbar, NavbarBrand, NavbarContent, Image } from "@nextui-org/react";
 import SearchInput from "./search-input";
-import { signIn, signOut } from "@/lib/actions";
-import { useRouter } from "next/navigation";
+import { auth } from "@/auth";
 
 export default async function Header() {
-  const router = useRouter()
+  const session = await auth();
   return (
     <Navbar isBordered maxWidth={'full'}>
       <NavbarContent justify="start">
@@ -19,16 +19,12 @@ export default async function Header() {
       </NavbarContent>
 
       <NavbarContent as="div" className="items-center" justify="end">
-    <Link href="/my-books">Mes livres</Link>
-    <Link href="/borrows">Mes emprunts</Link>
         <SearchInput />
-        <Button onPress={(e:any) => {console.log(e);signIn()}}>Sign In</Button>
-        <Button onPress={()=> {
-          signOut();
-          //router.push("/")
-        }
-        }>Sign Out</Button>
-
+        {session?.user ? <Account
+          avatarSrc={session?.user?.image || undefined}
+          mail={session?.user?.email || undefined} /> :
+          <form action={signIn}><Button type="submit">Sign In</Button>
+          </form>}
       </NavbarContent>
     </Navbar>
   )
