@@ -4,6 +4,7 @@ import { redirect } from "next/navigation"
 import { db } from "./db"
 import { Book } from "@prisma/client"
 import { revalidatePath } from "next/cache"
+import * as auth from '@/auth'
 
 
 
@@ -68,4 +69,12 @@ export async function createOrUpdateBook(book: Book | undefined, formState: { me
 
     redirect('/my-books')
 
+}
+
+export async function signIn() {
+    return auth.signIn("github")
+}
+
+export async function signOut() {
+    return auth.signOut()
 }
