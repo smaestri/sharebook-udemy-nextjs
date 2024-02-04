@@ -1,6 +1,6 @@
 export default async function Home() {
   return <div>
-   Page d'Accueil
+   Page d Accueil
 
     </div>
 }

@@ -1,10 +1,8 @@
 "use client"
 import { Input } from "@nextui-org/react";
 import { SearchIcon } from "./SearchIcon";
-import { useSearchParams } from "next/navigation";
 
 export default function SearchInput() {
-    const searchParams = useSearchParams();
     return (
         <Input
             name="term"
@@ -18,6 +16,5 @@ export default function SearchInput() {
             size="sm"
             startContent={<SearchIcon size={18} />}
             type="search"
-            defaultValue={searchParams.get("term") || ""}
         />)
 }

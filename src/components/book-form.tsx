@@ -12,7 +12,6 @@ interface BookFormProps {
 
 export default function BookForm({ book, categories }: BookFormProps) {
 
-    console.log('cate', categories)
     const [formState, action] = useFormState(createOrUpdateBook.bind(null, book), {
       message: ""
     })

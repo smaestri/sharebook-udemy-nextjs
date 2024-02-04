@@ -24,7 +24,6 @@ export default async function ListBooksPage({searchParams} : ListBooksProps) {
     where: { id: parseInt(searchParams.categoryId) }
   })
 
-  console.log('books', books)
   const renderBooks = () => (
     books.map((book: BookWithCategory) => (
       <div
@@ -46,7 +45,7 @@ export default async function ListBooksPage({searchParams} : ListBooksProps) {
   )
 
   return <>
-    <h1 className="text-2xl">Livres pour catégorie "{category?.name}"</h1>
+    <h1 className="text-2xl">Livres pour catégorie {category?.name}</h1>
     <div className="flex flex-wrap gap-4 mt-5 mb-5">
       {renderBooks()}
     </div>

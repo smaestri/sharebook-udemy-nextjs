@@ -16,7 +16,6 @@ export default async function MyBooksPage() {
       category: true
     }
   });
-  console.log('books', books)
   const renderBooks = () => (
     books.map((book: BookWithCategory) => (
       <div
