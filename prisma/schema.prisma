@@ -10,7 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -46,6 +45,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Borrow Borrow[]
   Book   Book[]
 }
 
@@ -66,11 +66,21 @@ model Book {
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   userId     String
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Borrow     Borrow[]
 }
 
 model Category {
   id   Int    @id @default(autoincrement())
   name String
   Book Book[]
+}
+
+model Borrow {
+  book       Book @relation(fields: [bookId], references: [id])
+  bookId     Int
+  borrower   User @relation(fields: [borrowerId], references: [id])
+  borrowerId String
+
+  @@unique([bookId, borrowerId])
 }
 
